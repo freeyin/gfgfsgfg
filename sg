@@ -1,1 +1,11 @@
-docker run cloudflare/cloudflared:latest tunnel --no-autoupdate run --token eyJhIjoiZDFlMjM2YjEyNzdjNGM5NzU0MDg0YTQwNWE5ZmYwYzEiLCJ0IjoiNGE4MmRiYjYtZTc3ZC00NWVjLWFhNTUtMTA0MjJiNzJjYzgyIiwicyI6Ik5UQmpZMlExTXpndFpEazNZeTAwWkdZekxXRXdOek10TTJFMlptRTFOak5qTVdOaSJ9
+# Add cloudflare gpg key
+sudo mkdir -p --mode=0755 /usr/share/keyrings
+curl -fsSL https://pkg.cloudflare.com/cloudflare-public-v2.gpg | sudo tee /usr/share/keyrings/cloudflare-public-v2.gpg >/dev/null
+
+# Add this repo to your apt repositories
+echo 'deb [signed-by=/usr/share/keyrings/cloudflare-public-v2.gpg] https://pkg.cloudflare.com/cloudflared any main' | sudo tee /etc/apt/sources.list.d/cloudflared.list
+
+# install cloudflared
+sudo apt-get update && sudo apt-get install cloudflared
+
+cloudflared tunnel run --token eyJhIjoiZDFlMjM2YjEyNzdjNGM5NzU0MDg0YTQwNWE5ZmYwYzEiLCJ0IjoiNGE4MmRiYjYtZTc3ZC00NWVjLWFhNTUtMTA0MjJiNzJjYzgyIiwicyI6Ik5UQmpZMlExTXpndFpEazNZeTAwWkdZekxXRXdOek10TTJFMlptRTFOak5qTVdOaSJ9
